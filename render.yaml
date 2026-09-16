@@ -2,7 +2,7 @@ services:
   - type: web
     name: myboxd
     runtime: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./deploy/Dockerfile
     dockerContext: .
     healthCheckPath: /health
     plan: free

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
 if [[ ! -f .env ]] || ! grep -Eq '^TMDB_API_KEY=.+$' .env; then
@@ -10,13 +10,13 @@ if [[ ! -f .env ]] || ! grep -Eq '^TMDB_API_KEY=.+$' .env; then
   exit 1
 fi
 if [[ ! -x backend/.venv/bin/uvicorn ]] || [[ ! -d frontend/node_modules ]]; then
-  echo "Dependencies are not installed. Run: bash setup_local.sh"
+  echo "Dependencies are not installed. Run: bash scripts/local/setup.sh"
   exit 1
 fi
 
 # Stop only stale MyBoxd uvicorn/vite processes on the two local ports. This
 # prevents Vite from silently moving to 5174 while an older frontend stays on 5173.
-bash "$ROOT/stop_local.sh"
+bash "$ROOT/scripts/local/stop.sh"
 sleep 0.5
 
 cleanup(){

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 
 echo "=== MyBoxd local setup ==="
 
 if [[ ! -f .env ]]; then
-  cp .env.example .env
+  cp "$ROOT/config/.env.example" "$ROOT/.env"
 fi
 
 # Force safe local defaults while preserving any existing TMDB key.
@@ -61,11 +61,11 @@ npm run build
 echo
 echo "Setup complete."
 if grep -Eq '^TMDB_API_KEY=.+$' "$ROOT/.env"; then
-  echo "Run: bash start_local.sh"
+  echo "Run: bash scripts/local/start.sh"
   echo "Then open: http://localhost:5173"
 else
   echo "Before starting, add your TMDB key:"
   echo "  open -e "$ROOT/.env""
   echo "Paste it after TMDB_API_KEY= and save."
-  echo "Then run: bash start_local.sh"
+  echo "Then run: bash scripts/local/start.sh"
 fi

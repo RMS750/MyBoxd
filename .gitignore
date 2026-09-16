@@ -24,3 +24,5 @@ export.zip
 
 # Large local catalogue download (fetched from GroupLens during setup)
 backend/data/
+__pycache__/
+node_modules/
